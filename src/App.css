@@ -1,32 +1,373 @@
+/* <-- APP COMPONENT STARTS HERE --> */
+
+html, body {
+  background-color: lightseagreen;
+}
+
 .App {
   text-align: center;
+  display: block;
+  background-color: lightseagreen;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.App ul {
+  margin: 1rem auto;
+  padding-left: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.App img {
+  height: 50px;
+  width: 50px;
+
+}
+
+.active-link {
+  color: white !important;
+  background-color: black;
+}
+
+.App ul a {
+  color: black;
+  text-decoration-line: none;
+  border-radius: 6px;
+  padding: 0px 5px;
+  margin: 0 1rem 0 0;
+  border: 2px solid black;
+}
+
+/* <-- APP COMPONENT ENDS HERE --> */
+
+/* <-- TRANSFORMERS COMPONENT STARTS HERE --> */
+
+.transformers {
+  border: 2px solid black;
+  width: 350px;
+  margin: 0 auto;
+  background-color: moccasin;
+}
+
+@media screen and (max-width: 600px) {
+  .transformers {
+    width: 300px;
+  }
+}
+
+.transformers .search {
+  margin: 1rem 0 0.4rem 0;
+  padding: 2px 0 2px 0.5rem;
+  border: 0 none;
+  border-radius: 0;
+  border-bottom: 2px solid grey;
+  outline: none;
+  transition: all 500ms ease-in-out;
+  background-color: moccasin;
+}
+
+.transformers .search:focus {
+  color: black;
+  border-color: black;
+}
+
+.transformers .search::-webkit-input-placeholder {
+  transition: color 500ms ease-in-out;
+}
+
+.transformers .search:focus::-webkit-input-placeholder {
+  color: black
+}
+
+/* <-- TRANSFORMERS COMPONENT ENDS HERE --> */
+
+/* <-- TRANSFORMER COMPONENT STARTS HERE --> */
+
+.transformer {
+  margin: 0 auto 1rem;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: moccasin;
+}
+
+.transformer-status {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.transformer-status select {
+  width: 140px;
+}
+
+.transformer h3 {
+  margin-bottom: 0;
+  margin-top: 0;
+  text-align: left;
+}
+
+.transformer p {
+  margin-top: 0.5em;
+  text-align: left;
+}
+
+.transformer .delete-icon {
+  background: black;
+	width: 28px;
+	height: 45px;
+	display: inline-block;
+	cursor: pointer;
+  position: relative;
+  top: 30px;
+  border-style: none;
+	-webkit-border-bottom-right-radius: 6px;
+	-webkit-border-bottom-left-radius: 6px;
+	-moz-border-radius-bottomright: 6px;
+	-moz-border-radius-bottomleft: 6px;
+	border-bottom-right-radius: 6px;
+	border-bottom-left-radius: 6px;
+}
+
+.transformer .delete-icon span {
+  position: absolute;
+  width: 40px;
+	height: 6px;
+	background: black;
+	top: -7px;
+	left: -6px;
+	right: -10px;
+	
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	transform: rotate(0deg);
+	transition: transform 250ms;
+	transform-origin: 100% 0;
+}
+
+.transformer .delete-icon:hover span {
+  transform: rotate(45deg);
+	transition: transform 450ms;
+}
+
+.transformer .delete-icon span:after {
+  content: '';
+	position: absolute;
+	width: 22px;
+	height: 7px;
+	background: black;
+	top: -8px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	transform: rotate(0deg);
+	transition: transform 250ms;
+	transform-origin: 19% 100%;
+	left: 9px;
+}
+
+.transformer .delete-icon i {
+  position: relative;
+	width: 2px;
+	height: 35px;
+	background: #fff;
+	display: block;
+	margin: 0 auto;
+	border-radius: 5px;
+}
+
+.transformer .delete-icon i:after {
+  content: '';
+	width: 2px;
+	height: 35px;
+	background: #fff;
+	position: absolute;
+	left: -9px;
+	border-radius: 5px;
+}
+
+.transformer .delete-icon i:before {
+  content: '';
+	width: 2px;
+	height: 35px;
+	background: #fff;
+	position: absolute;
+	right: -9px;
+	border-radius: 5px;
+}
+
+/* <-- TRANSFORMER COMPONENT ENDS HERE --> */
+
+/* <-- ADD COMPONENT STARTS HERE --> */
+
+.add-transformer {
+  border: 2px solid black;
+  width: 350px;
+  margin: 0 auto;
+  background-color: moccasin;
+}
+
+.add-transformer form input,
+.add-transformer form select {
+  width: unset;
+}
+
+.add-transformer .btn-outline-primary {
+  color: lightseagreen;
+  border-color: lightseagreen;
+  background-color: transparent;
+}
+
+.add-transformer .btn-outline-primary:hover,
+.add-transformer .btn-outline-primary:not(:disabled):not(.disabled):active {
   color: white;
+  border-color: lightseagreen;
+  background-color: lightseagreen;
 }
 
-.App-link {
-  color: #61dafb;
+.add-transformer .btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, .5);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* <-- ADD COMPONENT ENDS HERE --> */
+
+/* <-- DETAILS COMPONENT STARTS HERE --> */
+
+.details {
+  background-color: moccasin;
+  display: flex;
+  justify-content: space-around;
+  border: 2px solid black;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 1400px) {
+  .details {
+    width: 625px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (min-width: 992px) {
+  .details {
+    max-width: 45%;
+    width: auto;
+    flex-direction: row;
   }
+  
+}
+
+@media screen and (max-width: 991px){
+  .details { 
+    flex-direction: column;
+    width: 300px;
+  }
+}
+
+.details .list {
+  margin: 1rem auto 0.5rem;
+}
+
+.details .list div {
+  margin-bottom: 0.5rem;
+}
+
+.details .list div a {
+  color: black;
+  text-decoration-line: none;
+  border-radius: 6px;
+  padding: 0px 5px;
+  margin: 0 1rem 0 0;
+  border: 1px solid black;
+}
+
+.active-transformer,
+.details .list div a:hover {
+  color: white !important;
+  background-color: black;
+} 
+
+/* <-- DETAILS COMPONENT ENDS HERE --> */
+
+/* <-- UPDATEDETAILS COMPONENT STARTS HERE --> */
+
+@media screen and (min-width: 992px) {
+  .update-details {
+    display: flex;
+    margin: 1rem auto 1rem 0;
+  }
+
+  .update-details .line {
+    border-left: 3px solid black;
+    margin-right: 3rem;
+  }
+
+  .details .hline {
+    display: none; 
+  }
+}
+
+.update-details form div {
+  margin-bottom: .5rem;
+}
+
+.update-details form div .left-tab {
+  text-align: right;
+  width: 40%;
+  vertical-align: top;
+  margin-right: 0.5rem;
+}
+
+.update-details form div .right-tab {
+  text-align: left;
+  display: unset;
+  width: 48%;
+  vertical-align: middle;
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+  padding: .375rem .75rem;
+}
+
+@media screen and (max-width: 991px) {
+
+  .update-details .hline {
+    display: block;
+    border-bottom: 2px solid black;
+    margin: 0 1rem 1rem;
+  }
+
+}
+
+.update-details .btn-outline-primary {
+  color: lightseagreen;
+  border-color: lightseagreen;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 991px) {
+
+  .update-details .btn-outline-primary {
+    margin: 1rem auto;
+  }
+  
+}
+
+.update-details .btn-outline-primary:hover,
+.update-details .btn-outline-primary:not(:disabled):not(.disabled):active {
+  color: white;
+  border-color: lightseagreen;
+  background-color: lightseagreen;
+}
+
+.update-details .btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(32, 178, 170, .5);
+}
+
+/* <-- UPDATEDETAILS COMPONENT ENDS HERE --> */
+
+
+select * {
+  text-transform: capitalize;
+}
+.add-transformer form *:not(span) {
+  margin: 1rem auto;
+  display: block;
+}
+.transformer h3, .transformer button {
+  display: inline-block;
 }
