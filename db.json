@@ -123,16 +123,14 @@
       "id": 9
     },
     {
-      "name": "Jakovasad",
-      "vehicleGroup": "Air",
-      "vehicleType": "Plane",
-      "vehicleModel": "F-22",
+      "name": "dsadsa",
+      "vehicleGroup": "Sea",
+      "vehicleType": "Boat",
+      "vehicleModel": "Sailboat",
       "gear": [
-        "shield",
-        "sword",
-        "bow"
+        "shield"
       ],
-      "status": "OK",
+      "status": "INJURED",
       "id": 10
     }
   ]

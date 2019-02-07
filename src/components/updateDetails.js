@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactModal from 'react-modal';
 
 
 export default class UpdateDetails extends Component {
@@ -18,7 +19,9 @@ export default class UpdateDetails extends Component {
             vehicleType: this.props.vehicleType,
             vehicleModel: this.props.vehicleModel,
             gear: [],
-            status: ''
+            status: '',
+            showModal: false,
+            modalText: ''
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
