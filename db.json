@@ -78,6 +78,7 @@
   ],
   "transformers": [
     {
+      "id": 6,
       "name": "Optimus Prime",
       "vehicleGroup": "Land",
       "vehicleType": "Truck",
@@ -85,8 +86,7 @@
       "gear": [
         "Sword"
       ],
-      "status": "OK",
-      "id": 6
+      "status": "MIA"
     },
     {
       "name": "Megatron",
@@ -123,17 +123,17 @@
       "id": 9
     },
     {
-      "name": "Jakovasad",
+      "id": 10,
+      "name": "Jakovasa",
       "vehicleGroup": "Air",
-      "vehicleType": "Plane",
-      "vehicleModel": "F-22",
+      "vehicleType": "Helicopter",
+      "vehicleModel": "Apache",
       "gear": [
-        "shield",
-        "sword",
-        "bow"
+        "Cap",
+        "Sword",
+        "shield"
       ],
-      "status": "OK",
-      "id": 10
+      "status": "INJURED"
     }
   ]
 }

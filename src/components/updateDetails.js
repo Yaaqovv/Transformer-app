@@ -36,7 +36,7 @@ export default class UpdateDetails extends Component {
         "gear": this.gear.value,
         "status": this.status.value
       });
-      fetch('http://localhost:3000/transformers/'+this.state.id, {
+      fetch('http://localhost:3001/transformers/'+this.state.id, {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',

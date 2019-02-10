@@ -11,14 +11,28 @@ import NotFound from './components/notFound';
 
 
 class App extends Component {
-  state = {
-    transformers: []
+  
+  constructor() {
+    super();
+    this.state = {
+      transformers: []
+    }
+
+    this.getTransformers = this.getTransformers.bind(this);
   }
 
-  async componentDidMount() {
+  componentWillMount() {
+    this.getTransformers();
+  }
+
+  componentDidUpdate() {
+    this.getTransformers();
+  }
+
+  async getTransformers () {
     const transformers = await (await fetch('http://localhost:3001/transformers')).json();
 
-    this.setState({ transformers });
+    this.setState({ transformers: transformers });
   }
 
   render() {
@@ -37,9 +51,9 @@ class App extends Component {
             </ul>
               
             <Switch>            
-              <Route exact path="/" component={Transformers} />
+              <Route exact path="/" render={() => <Transformers transformers={this.state.transformers} getTransformers={this.getTransformers} />} />
               <Route path="/add" component={Add} />
-              <Route path="/details" render={props => <DetailsPage {...props} />} />
+              <Route path="/details" render={props => <DetailsPage {...props} transformers={this.state.transformers} getTransformers={this.getTransformers} />} />
               <Route component={NotFound} />
             </Switch>
             

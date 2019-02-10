@@ -201,7 +201,16 @@ html, body {
   width: 350px;
   margin: 0 auto;
   background-color: moccasin;
+
+  
 }
+
+@media screen and (max-width: 991px) {
+    .add-transformer {
+      width: 300px;
+    }
+}
+
 
 .add-transformer form input,
 .add-transformer form select {
