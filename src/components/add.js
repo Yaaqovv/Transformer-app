@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+
 import ReactModal from 'react-modal'
+import types from '../modules/types'
 
 ReactModal.setAppElement('#root');
 
@@ -8,11 +10,7 @@ export default class Add extends Component {
   constructor(props) {
     super(props);
     this.models = {}
-    this.types = {
-      Air:  ['Helicopter', 'Plane'],
-      Sea:  ['Boat', 'Submarine'],
-      Land: ['Car', 'Truck']
-    }
+    
     this.statuses = ['OK', 'INJURED', 'MIA'];
     this.state = {
       name: '',
@@ -67,7 +65,7 @@ export default class Add extends Component {
         this.validateName();
       } else if (name === 'vehicleGroup') {
         this.setState({
-          currentVehicleGroup: this.types[value]
+          currentVehicleGroup: types[value]
         });
       } else if (name === 'vehicleType') {
         this.setState({

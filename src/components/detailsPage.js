@@ -3,7 +3,7 @@ import { Route, NavLink } from 'react-router-dom';
 
 import UpdateDetails from './updateDetails';
 import NotFound from './notFound';
-
+import types from '../modules/types'
 
 export default class DetailsPage extends Component {
 
@@ -11,12 +11,6 @@ export default class DetailsPage extends Component {
         super(props);
 
         this.models = {}
-
-        this.types = {
-            Air:  ['Helicopter', 'Plane'],
-            Sea:  ['Boat', 'Submarine'],
-            Land: ['Car', 'Truck']
-        };
 
         this.state = {
             items: []
@@ -26,21 +20,6 @@ export default class DetailsPage extends Component {
     }
 
     getTransformers() {
-        const myHeaders = new Headers({
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-        });
-        fetch('http://localhost:3001/transformers', {
-            headers: myHeaders,
-        })
-        .then(response => response.json())
-        .then(json => {
-            this.setState({
-                items: json
-            })
-            console.log(this.props.match);
-            console.log(json);
-        });
 
         fetch("http://localhost:3001/vehicleTypes")
         .then(response => response.json())
@@ -55,9 +34,11 @@ export default class DetailsPage extends Component {
             });
             console.log(this.models);
         });
+
+        this.setState({ items: this.props.transformers });
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getTransformers();
     }
 
@@ -82,7 +63,7 @@ export default class DetailsPage extends Component {
                         return <NotFound />
                     }
 
-                    return <UpdateDetails {...transformer} types={this.types} models={this.models} getTransformer={this.getTransformers} />
+                    return <UpdateDetails {...transformer} types={types} models={this.models} getTransformer={this.props.getTransformers} />
                 }
             } />
           </div>
