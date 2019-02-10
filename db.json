@@ -123,17 +123,15 @@
       "id": 9
     },
     {
-      "id": 10,
-      "name": "Jakovasa",
-      "vehicleGroup": "Air",
-      "vehicleType": "Helicopter",
-      "vehicleModel": "Apache",
+      "name": "dsadsa",
+      "vehicleGroup": "Sea",
+      "vehicleType": "Boat",
+      "vehicleModel": "Sailboat",
       "gear": [
-        "Cap",
-        "Sword",
         "shield"
       ],
-      "status": "INJURED"
+      "status": "INJURED",
+      "id": 10
     }
   ]
 }

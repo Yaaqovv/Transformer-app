@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+
+import ReactModal from 'react-modal'
 import types from '../modules/types'
 
+ReactModal.setAppElement('#root');
 
 export default class Add extends Component {
 
@@ -18,7 +21,9 @@ export default class Add extends Component {
       currentModelGroup: [],
       vehicleModel: '',
       gear: '',
-      status: ''
+      status: '',
+      showModal: false,
+      modalText: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.submitForm = this.submitForm.bind(this);
@@ -71,22 +76,34 @@ export default class Add extends Component {
   }
   submitForm (event) {
     event.preventDefault();
-    fetch('http://localhost:3001/transformers', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: this.state.name,
-        vehicleGroup: this.state.vehicleGroup,
-        vehicleType: this.state.vehicleType,
-        vehicleModel: this.state.vehicleModel,
-        gear: this.state.gear.split(", "),
-        status: this.state.status
+    if ( this.state.name && this.state.vehicleGroup && this.state.vehicleType && this.state.vehicleModel && this.state.gear && this.state.status) {
+      fetch('http://localhost:3001/transformers', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: this.state.name,
+          vehicleGroup: this.state.vehicleGroup,
+          vehicleType: this.state.vehicleType,
+          vehicleModel: this.state.vehicleModel,
+          gear: this.state.gear.split(", "),
+          status: this.state.status
+        })
       })
-    })
-    .then(this.setState({ name: '', gearItem: ''}));
+      .then(response => console.log(response.json()))
+      .then(this.setState({ name: '',
+                            gearItem: '',
+                            modalText: 'Transformer has been added.',
+                            showModal: !this.state.showModal
+                          }))
+    } else {
+      this.setState({ modalText: 'Transformer has not been added. Make sure all fields are filled in.',
+                      showModal: !this.state.showModal
+                    })
+
+    }
     
   }
 
@@ -96,42 +113,74 @@ export default class Add extends Component {
     });
   }
 
+  modalToggle = () => {
+    this.setState({ showModal: !this.state.showModal })
+  }
+
+  getModalParent = () => {return document.querySelector('.add-transformer')}
+
 
   render() {
+    const contentStyle = {
+      position: 'absolute',
+      left: '7vw',
+      right: '7vw',
+      width: '30vw',
+      margin: '0 auto',
+      border: 'none',
+      background: 'moccasin',
+      overflow: 'auto',
+      borderRadius: '4px',
+      bottom: 'unset',
+      outline: 'none',
+      padding: '35px',
+    }
     const vGroup = ['Air', 'Sea', 'Land'];
     return (
       <div className="add-transformer">
-        <form>
-            <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.name} name="name" onChange={this.handleNameChange} />
+        <form onSubmit={this.submitForm}>
+            <input type="text" id="name" placeholder="Name" className="form-control" value={this.state.name} name="name" onChange={this.handleNameChange} required/>
             <div>{this.state.nameError}</div>
-            <select name="vehicleGroup" className="form-control" onChange={this.handleInputChange}>
+            <select name="vehicleGroup" className="form-control" onChange={this.handleInputChange} required>
                 <option selected disabled>Please select group</option>
                 
                 {vGroup.map((group, index) => (
                     <option key={index} value={group}>{group}</option>
                 ))}
             </select> 
-            <select name="vehicleType" className="form-control" onChange={this.handleInputChange}>
+            <select name="vehicleType" className="form-control" onChange={this.handleInputChange} required>
                 <option selected disabled>Please select type</option>
                 {this.state.currentVehicleGroup.map((type, index) => (
                     <option key={index} value={type}>{type}</option>
                 ))}
             </select>
-            <select name="vehicleModel" className="form-control" onChange={this.handleInputChange}>
+            <select name="vehicleModel" className="form-control" onChange={this.handleInputChange} required>
                 <option selected disabled>Please select model</option>
                 {this.state.currentModelGroup.map((model, index) => (
                     <option key={index} value={model}>{model}</option>
                 ))}
             </select>
-              <input type="text" id="gear" placeholder="Gear" className="form-control" value={this.state.gear} name="gear" onChange={this.handleInputChange} />
-            <select name="status" id="status" className="form-control" onChange={this.handleInputChange}>
+              <input type="text" id="gear" placeholder="Gear" className="form-control" value={this.state.gear} name="gear" onChange={this.handleInputChange} required/>
+            <select name="status" id="status" className="form-control" onChange={this.handleInputChange} required>
               <option selected disabled>Please select status</option>
               {this.statuses.map((status, index) => (
                   <option key={index} value={status}>{status}</option>
               ))}
             </select>
-            <input type="submit" id="submit" className="btn btn-outline-primary" onClick={this.submitForm} value="Add transformer"/>
+            <input type="submit" id="submit" className="btn btn-outline-primary" value="Submit"/>
         </form>
+        <ReactModal
+          isOpen={this.state.showModal}
+          style={{content: contentStyle}}
+          closeTimeoutMS={200}
+          contentLabel="sadssaddsads"
+          parentSelector={() => document.querySelector('.add-transformer')}
+        >
+          <div>{this.state.modalText}</div>
+          <button className="btn btn-outline-primary" onClick={this.modalToggle}>
+            Ok
+          </button>
+        </ReactModal>
       </div>
     );
      
