@@ -82,13 +82,14 @@
       "name": "Optimus Prime",
       "vehicleGroup": "Land",
       "vehicleType": "Truck",
-      "vehicleModel": "Western Star 5700",
+      "vehicleModel": "Unimog",
       "gear": [
         "Sword"
       ],
       "status": "MIA"
     },
     {
+      "id": 7,
       "name": "Megatron",
       "vehicleGroup": "Air",
       "vehicleType": "Plane",
@@ -96,19 +97,18 @@
       "gear": [
         "Sword"
       ],
-      "status": "INJURED",
-      "id": 7
+      "status": "INJURED"
     },
     {
-      "name": "ziher",
+      "id": 8,
+      "name": "Ziher",
       "vehicleGroup": "Air",
       "vehicleType": "Plane",
       "vehicleModel": "MiG",
       "gear": [
         "shield"
       ],
-      "status": "MIA",
-      "id": 8
+      "status": "OK"
     },
     {
       "name": "Bumblebee",
@@ -123,15 +123,15 @@
       "id": 9
     },
     {
+      "id": 10,
       "name": "dsadsa",
       "vehicleGroup": "Sea",
       "vehicleType": "Boat",
-      "vehicleModel": "Sailboat",
+      "vehicleModel": "Jetboat",
       "gear": [
         "shield"
       ],
-      "status": "INJURED",
-      "id": 10
+      "status": "INJURED"
     }
   ]
 }

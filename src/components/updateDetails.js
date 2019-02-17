@@ -14,6 +14,7 @@ export default class UpdateDetails extends Component {
         this.state = {
             id: '',
             name: '',
+            nameError: '',
             vehicleGroup: this.props.vehicleGroup,
             currentVehicleGroup: [],
             vehicleType: this.props.vehicleType,
@@ -31,31 +32,38 @@ export default class UpdateDetails extends Component {
 
     handleSubmit(event) {
       event.preventDefault();
-      console.log({
-        "name": this.name.value,
-        "vehicleGroup": this.vGroup.value,
-        "vehicleType": this.vType.value,
-        "vehicleModel": this.model.value,
-        "gear": this.gear.value,
-        "status": this.status.value
-      });
-      fetch('http://localhost:3001/transformers/'+this.state.id, {
-        method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: this.state.id,
-          name: this.name.value,
-          vehicleGroup: this.vGroup.value,
-          vehicleType: this.vType.value,
-          vehicleModel: this.model.value,
-          gear: this.gear.value.split(", "),
-          status: this.status.value
+      if ( this.name.value.length >= 2 && this.state.vehicleGroup && this.state.vehicleType && this.state.vehicleModel && this.state.gear && this.state.status) {
+        fetch('http://localhost:3001/transformers/'+this.state.id, {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            id: this.state.id,
+            name: this.name.value,
+            vehicleGroup: this.vGroup.value,
+            vehicleType: this.vType.value,
+            vehicleModel: this.model.value,
+            gear: this.gear.value.split(", "),
+            status: this.status.value
+          })
         })
-      })
-      this.props.getTransformer();
+        .then(this.setState({ 
+                            modalText: 'Transformer has been updated.',
+                            showModal: !this.state.showModal
+                          }))
+        this.props.getTransformers();
+      } else {
+        this.setState({ modalText: 'Transformer has not been updated. Make sure all fields are filled in.',
+                        showModal: !this.state.showModal
+                      })
+  
+        } 
+    }
+
+    componentDidMount() {
+      this.props.getTransformers();
     }
 
     handleInputChange (event) {
@@ -67,6 +75,23 @@ export default class UpdateDetails extends Component {
         [name]: value
       });
 
+  }
+
+  handleNameChange = event => {
+    this.setState({
+      name: event.target.value
+    }, () => this.validateName());
+  }
+
+
+  validateName = () => {
+    this.setState({
+      nameError: this.name.value.length >= 2 ? null : 'Name must be longer than 1 character.'
+    });
+  }
+
+  modalToggle = () => {
+    this.setState({ showModal: !this.state.showModal })
   }
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -100,6 +125,20 @@ export default class UpdateDetails extends Component {
 
     render() {
         const vGroup = ['Air', 'Sea', 'Land'];
+        const contentStyle = {
+          position: 'absolute',
+          left: '7vw',
+          right: '7vw',
+          width: '30vw',
+          margin: '0 auto',
+          border: 'none',
+          background: 'moccasin',
+          overflow: 'auto',
+          borderRadius: '4px',
+          bottom: 'unset',
+          outline: 'none',
+          padding: '35px',
+        }
         
         return (
           <div className="update-details">
@@ -107,8 +146,8 @@ export default class UpdateDetails extends Component {
             <div className="hline"></div>
             <form onSubmit={this.handleSubmit} key={this.props.id}>
             <div><label htmlFor="id" className="left-tab">ID: </label><input type="text" name="id" className="right-tab" value={this.state.id} readOnly/></div>
-            <div><label htmlFor="name" className="left-tab">Name: </label><input type="text" name="name" className="right-tab" defaultValue={this.state.name || ''} ref={input => this.name = input} onChange={this.handleInputChange}/></div>
-  
+            <div><label htmlFor="name" className="left-tab">Name: </label><input type="text" name="name" className="right-tab" defaultValue={this.state.name || ''} ref={input => this.name = input} onChange={this.handleNameChange}/></div>
+            <div>{this.state.nameError}</div>
             <div>
               <label htmlFor="vehicleGroup" className="left-tab">Vehicle group: </label>
               <select name="vehicleGroup" className="right-tab" ref={input => this.vGroup = input} onChange={this.handleInputChange}>
@@ -169,6 +208,18 @@ export default class UpdateDetails extends Component {
 
             <button className="btn btn-outline-primary" type="submit">Update</button>
             </form>
+            <ReactModal
+              isOpen={this.state.showModal}
+              style={{content: contentStyle}}
+              closeTimeoutMS={200}
+              contentLabel="sadssaddsads"
+              parentSelector={() => document.querySelector('.update-details')}
+            >
+              <div>{this.state.modalText}</div>
+              <button className="btn btn-outline-primary" onClick={this.modalToggle}>
+                Ok
+              </button>
+            </ReactModal>
           </div>
         );
     }

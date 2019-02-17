@@ -16,10 +16,10 @@ export default class DetailsPage extends Component {
             items: []
         };
 
-        this.getTransformers = this.getTransformers.bind(this);
+        this.getModels = this.getModels.bind(this);
     }
 
-    getTransformers() {
+    getModels() {
 
         fetch("http://localhost:3001/vehicleTypes")
         .then(response => response.json())
@@ -39,7 +39,8 @@ export default class DetailsPage extends Component {
     }
 
     componentDidMount() {
-        this.getTransformers();
+        this.getModels();
+        this.props.getTransformers();
     }
 
     render() {
@@ -63,7 +64,7 @@ export default class DetailsPage extends Component {
                         return <NotFound />
                     }
 
-                    return <UpdateDetails {...transformer} types={types} models={this.models} getTransformer={this.props.getTransformers} />
+                    return <UpdateDetails {...transformer} types={types} models={this.models} getTransformers={this.props.getTransformers} />
                 }
             } />
           </div>

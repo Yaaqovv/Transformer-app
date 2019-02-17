@@ -117,9 +117,6 @@ export default class Add extends Component {
     this.setState({ showModal: !this.state.showModal })
   }
 
-  getModalParent = () => {return document.querySelector('.add-transformer')}
-
-
   render() {
     const contentStyle = {
       position: 'absolute',
